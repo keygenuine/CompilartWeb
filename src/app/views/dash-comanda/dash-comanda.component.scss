@@ -1,0 +1,15 @@
+/* Exemplo de estilo personalizado para o datepicker */
+.custom-datepicker .mat-calendar {
+    background-color: #f0f0f0; /* Altere para a cor de fundo desejada */
+  }
+  
+  /* Estilos para os dias selecionados e hover */
+  .custom-datepicker .mat-calendar .mat-calendar-body-cell.selected {
+    background-color: #ff5722; /* Cor de fundo para o dia selecionado */
+    color: #ffffff; /* Cor do texto para o dia selecionado */
+  }
+  
+  .custom-datepicker .mat-calendar .mat-calendar-body-cell:hover {
+    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
+  }
+  

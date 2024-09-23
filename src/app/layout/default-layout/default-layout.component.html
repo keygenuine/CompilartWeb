@@ -1,0 +1,46 @@
+<!--sidebar-->
+<c-sidebar
+  #sidebar1="cSidebar"
+  class="d-print-none sidebar sidebar-fixed border-end"
+  colorScheme="dark"
+  id="sidebar1"
+  visible
+>
+  <c-sidebar-header class="border-bottom">
+    <c-sidebar-brand [routerLink]="[]">
+      <c-row>
+        <c-col xs="4">
+          <img src="./assets/img/compilart.png" height="10" width="10">
+        </c-col>
+        <c-col xs="3" >
+            <h2 class="text-center" style="font-size: 20px;margin-top:4.5px;">COMPILART</h2>
+            <h2 class="text-center" style="font-size: 10px;margin-top:-10px;margin-left: 2px;">TECNOLOGIA</h2>
+        </c-col>
+      </c-row>
+    </c-sidebar-brand>
+  </c-sidebar-header>
+  <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
+    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
+  </ng-scrollbar>
+</c-sidebar>
+
+<!--main-->
+<div class="wrapper d-flex flex-column min-vh-100">
+  <!--app-header-->
+  <app-default-header
+    [cShadowOnScroll]="'sm'"
+    class="mb-0 d-print-none header header-sticky p-0 shadow-sm"
+    position="sticky"
+    sidebarId="sidebar1"
+  />
+  <!--app-body-->
+  <div style="overflow: hidden;">
+    <router-outlet />
+  </div>
+  <!-- <div class="body flex-grow-3">
+    <c-container breakpoint="lg">
+    </c-container>
+  </div> -->
+  <!--app footer-->
+  <app-default-footer />
+</div>

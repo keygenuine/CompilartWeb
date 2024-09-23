@@ -1,0 +1,11 @@
+@media only screen and (max-width: 799px) {
+    table{
+        overflow-x:scroll;
+    }
+    #inputProdutos{
+        width: 100px;
+    }
+    #colunasTabelaProdutos{
+        overflow-x:scroll;
+    }
+}

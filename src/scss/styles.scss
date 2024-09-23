@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles with default layout.
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+// Custom styles for this theme
+@import "theme";
+
+// Some temp fixes
+//@import "fixes";
+
+// If you want to add custom CSS you can put it here.
+@import "custom";
+
+// Examples
+// We use those styles to show code examples, you should remove them in your application.
+@import "examples";
+:root{
+    --cui-secondary:#d63384;
+    --azul:#008498 
+    --vermelho:#B04E57;
+    --azulAgua:#7CBCCB;
+    --verde:#32BA46;
+    --verdeClar:#00ff26
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#faturamentoWidget{
+    background-color: #008498  !important
+}
+#ticketWidget{
+    
+    background-color: #7CBCCB!important
+}
+#cancelamentosWidget{
+    
+    background-color:#B04E57 !important
+}
+#vendasWidget{
+    background-color: #32BA46 !important
+}
+
+#datePicker {
+    background: transparent; /* Remove o fundo do input */
+    border: 1px solid rgba(255, 255, 255, 0.137); /* Define a borda como branca */
+    color: #ffffff; /* Define a cor do texto dentro do input */
+    border-radius: 0.5rem;
+    // width: 250px;
+}
+.dropdown-toggle::after {
+    display: none; /* Remove a seta para baixo */
+  }
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(255, 255, 255, 0.438) !important; /* Substitua pela cor desejada */
+    color: white !important;
+  }
+mat-label,.mat-datepicker-toggle-default-icon{
+    color: rgb(0, 0, 0) !important;
+}
+.mat-mdc-form-field-subscript-wrapper, .mat-mdc-form-field-bottom-align::before {
+    background-color: rgb(255, 0, 0) !important;
+}
+
+
+#cardDelivery:hover{
+    background-color: rgba(128, 128, 128, 0.199);
+    transition:all ease-in 0.3s;
+}
+.cardClasse{
+    height: 300px !important;    
+    overflow: hidden;
+    transition:all ease-in 0.3s
+
+}
+.cardClasseShow{
+    height:600px !important;
+    overflow: hidden;
+    transition:all 0.3s;
+}
+#pesquisarData:active {
+    background-color: rgb(255, 255, 255);
+    transition: all 0.3s;
+  }
+
+#pesquisarData{
+    background-color: rgb(255, 255, 255,0);
+    border-radius:0.5rem;
+    border: none;
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    transition: all 0.3s
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media only screen and (min-width: 800px) {
+    .progress-group-prepend{
+        min-width: 20px;
+    }
+    img{
+        width: 50px;
+        height: 50px;
+    }
+    }
+    @media only screen and (max-width: 799px) {
+    .progress-group-prepend{
+        min-width: 10px;
+    }
+    img{
+        width: 70px;
+        height: 70px;
+    }
+    #datePicker {
+        width: 160px; /* Largura para telas menores */
+    }
+    }
