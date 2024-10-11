@@ -206,7 +206,6 @@ export class DashComandaComponent implements  OnInit, AfterViewInit {
   }
 
   verTema() {
-    console.log(this.chartService.temaAtual)
   }
 
   private subscription?: Subscription;
@@ -343,7 +342,6 @@ export class DashComandaComponent implements  OnInit, AfterViewInit {
         this.onGlobalVariableChange(newValue); // Dispara a função quando a variável mudar
       }
     );
-    console.log(this.cor=='white')
     Chart.register(Colors)
     Chart.register(zoomPlugin)
     this.buscarDados('2024-06-01','2024-08-01')
@@ -360,11 +358,10 @@ export class DashComandaComponent implements  OnInit, AfterViewInit {
       azul: '#7CBCCB'
 
     }
-    this.verTema()
     if (newValue == ('dark' || 'black')) {
-      const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
       this.cor = 'dark'
+      const b = document.querySelectorAll('#graficoFaturamento')
+         const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor =  '#212631b6'
       })
@@ -375,15 +372,18 @@ export class DashComandaComponent implements  OnInit, AfterViewInit {
         (f as HTMLElement).style.backgroundColor = '#212631b6';
       })
 
-      this.vendasPorProdutoChartComanda.options.scales.y.ticks.color = 'white'
+      this.faturamentoChartComanda.data.datasets[0].backgroundColor = 'rgb(0,0,0,0)'
+      this.faturamentoChartComanda.data.datasets[0].borderColor = 'white'
       this.faturamentoChartComanda.options.scales.y.ticks.color = 'white'
+      this.faturamentoChartComanda.update()
+      
+      this.vendasPorProdutoChartComanda.options.scales.y.ticks.color = 'white'
       this.estoqueProdutoChartComanda.options.scales.y.ticks.color = 'white'
       this.chartProdutividadeFuncionarioComanda.options.scales.x.ticks.color = 'white'
       this.chartMesaComanda.options.scales.y.ticks.color = 'white'
     
       
       this.vendasPorProdutoChartComanda.update()
-      this.faturamentoChartComanda.update()
       this.estoqueProdutoChartComanda.update()
       this.chartProdutividadeFuncionarioComanda.update()
       this.chartMesaComanda.update()
@@ -391,7 +391,7 @@ export class DashComandaComponent implements  OnInit, AfterViewInit {
     }else{
       this.cor = 'white'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+         const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor = 'black';
       })

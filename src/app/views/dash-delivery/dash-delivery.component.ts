@@ -392,7 +392,6 @@ export class DashDeliveryComponent implements OnInit, AfterViewInit {
 
   }
   buscarDados(dtInicial:any,dtFinal:any){
-    console.log(dtFinal,dtInicial)
     let body={  inicial:dtInicial,final:dtFinal}  
     this.httpConfigService.ConsultarDelivery(body).subscribe((element:any)=>{
       let widget = element.widgetDelivery
@@ -498,7 +497,8 @@ export class DashDeliveryComponent implements OnInit, AfterViewInit {
     if (newValue == 'dark') {
       this.cor = 'dark'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+      // const c = document.querySelectorAll('#datePicker')
+      const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor =  '#212631b6'
       })
@@ -514,7 +514,6 @@ export class DashDeliveryComponent implements OnInit, AfterViewInit {
       // corFundoGrafico?.addColorStop(0,'rgb(255,255,255,1)'); 
       // corFundoGrafico?.addColorStop(0.5,'rgb(255,255,255,0.5)'); 
       // corFundoGrafico?.addColorStop(1,'rgb(0,0,0,1)') 
-      console.log(corFundoGrafico)
       this.faturamentoChart.data.datasets[0].backgroundColor = '#212631b6'
       this.faturamentoChart.data.datasets[0].borderColor = 'white'
       this.faturamentoChart.update()
@@ -543,7 +542,7 @@ export class DashDeliveryComponent implements OnInit, AfterViewInit {
     }else{
       this.cor = 'white'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+      const c = document.querySelectorAll('.date')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor = 'black';
       })

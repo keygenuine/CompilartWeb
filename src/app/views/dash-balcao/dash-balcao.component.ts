@@ -345,7 +345,7 @@ cor = ''
     if (newValue == 'dark') {
       this.cor == 'dark'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+         const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor =  '#212631b6'
       })
@@ -356,8 +356,7 @@ cor = ''
         (f as HTMLElement).style.backgroundColor = '#212631b6';
       })
       let corFundoGrafico = 'black'
-      console.log(corFundoGrafico)
-      this.faturamentoChartBalcao.data.datasets[0].backgroundColor = '#212631b6'
+      this.faturamentoChartBalcao.data.datasets[0].backgroundColor = 'rgb(0,0,0,0)'
       this.faturamentoChartBalcao.data.datasets[0].borderColor = 'white'
       this.faturamentoChartBalcao.update()
 
@@ -383,7 +382,7 @@ cor = ''
       console.log('oi')
       this.cor = 'white'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+         const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor = 'black';
       })

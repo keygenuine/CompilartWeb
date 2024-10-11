@@ -39,10 +39,8 @@ let data = []
 let array = c.widgetDelivery
 for (let n in array){
   let dia = array[n].DIA
-  console.log(dia)
 }
 let nameToFind = '2024-07-03T03:00:00.000Z';
 
 
 let index = c.widgetDelivery.findIndex(item => item.DIA === nameToFind);
-console.log(index)

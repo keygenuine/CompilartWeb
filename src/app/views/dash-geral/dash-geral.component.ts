@@ -134,7 +134,7 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
   // private chartMesaComanda:any
   @ViewChild('faturamentoChartGeralRef') faturamentoChartGeralRef!: ElementRef;
 
-  @ViewChild('chartVendaBalcaoGeralRef') chartVendaBalcaoGeralRef!: ElementRef;
+  // @ViewChild('chartVendaBalcaoGeralRef') chartVendaBalcaoGeralRef!: ElementRef;
   @ViewChild('chartVendaComandaGeralRef') chartVendaComandaGeralRef!: ElementRef;
   
   @ViewChild('chartFaturamentoWidgetGeralRef') chartFaturamentoWidgetGeralRef!: ElementRef;
@@ -194,9 +194,9 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
     this.vendasPorProdutoChartGeral = this.chartService.newchart1('vendasPorProdutoChartGeral', this.getContext(this.estoqueProdutoChartGeralRef), 'vendasPorProduto','bar','Qtd. Vendida')
     this.estoqueProdutoChartGeral = this.chartService.newchart1('estoqueProdutoChartGeral', this.getContext(this.estoqueProdutoChartGeralRef), 'estoqueProduto','bar')
 
-    this.chartVendaBalcaoGeral = this.chartService.newchart1('chartVendaBalcaoGeral', this.getContext(this.chartVendaBalcaoGeralRef), 'faturamento','line','Venda Balcao')
-    this.chartVendaComandaGeral = this.chartService.newchart1('chartVendaComandaGeral', this.getContext(this.chartVendaComandaGeralRef), 'faturamento','line', 'Venda Comanda')
-    
+    // this.chartVendaBalcaoGeral = this.chartService.newchart1('chartVendaBalcaoGeral', this.getContext(this.chartVendaBalcaoGeralRef), 'faturamento','line','Venda Balcao')
+    this.chartVendaComandaGeral = this.chartService.newchart2('chartVendaComandaGeral', this.getContext(this.chartVendaComandaGeralRef), 'faturamento')
+    this.cor == 'white' ? this.onGlobalVariableChange('white') : this.onGlobalVariableChange('dark')
     // newchart1(
     //   chartname:any,
     //   chartContext:any,
@@ -298,7 +298,6 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       this.estoqueProdutoChartGeral.update()
   }
   updateListaDeProdutos(lista:any){
-    console.log(lista)
     this.produtosListaVendas = 0
     this.produtosListaCusto = 0 
     this.jsonServer.listaDeProdutos = []
@@ -328,22 +327,7 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       this.updatechartEstoqueAndProduto(element.produtos)
     })   
   }
-  cor =''
-  ngOnInit(): void {
-    // this.faturamentoChartGeral.data.datasets.push(this.faturamentoChartGeral.data.datasets[0])
-
-    this.subscription = this.chartService.myGlobalVariable$.subscribe(
-      (newValue) => {
-        this.onGlobalVariableChange(newValue); // Dispara a função quando a variável mudar
-      }
-    );
-    Chart.register(Colors)
-    Chart.register(zoomPlugin)
-    this.buscarDados('2024-06-01','2024-08-01')
-  }
-  dark = false
-  private onGlobalVariableChange(newValue: string) {
-    this.dark = true
+  private onGlobalVariableChange(newValue: any) {
     let cor = {
       branco:'#ffe5e5',
       transparente:'rgba(255, 255, 255, 0)',
@@ -352,10 +336,10 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       azul: '#7CBCCB'
 
     }
-    if (newValue == 'dark') {
+    if (newValue == 'dark')  {
       this.cor == 'dark'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+         const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor =  '#212631b6'
       })
@@ -365,10 +349,9 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
         (f as HTMLElement).style.borderColor = '';
         (f as HTMLElement).style.backgroundColor = '#212631b6';
       })
-      let corFundoGrafico = 'black'
-      console.log(corFundoGrafico)
-      this.faturamentoChartGeral.data.datasets[0].backgroundColor = '#212631b6'
+      this.faturamentoChartGeral.data.datasets[0].backgroundColor = 'rgb(0,0,0,0)'
       this.faturamentoChartGeral.data.datasets[0].borderColor = 'white'
+      this.faturamentoChartGeral.options.scales.y.ticks.color = 'white'
       this.faturamentoChartGeral.update()
 
       this.vendasPorProdutoChartGeral.options.scales.y.ticks.color = 'white'
@@ -380,7 +363,6 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       this.chartCancelamentosWidgetGeral.options.scales.y.ticks.color = 'white'
       this.chartVendasWidgetGeral.options.scales.y.ticks.color = 'white'
       
-      this.faturamentoChartGeral.update()
       this.vendasPorProdutoChartGeral.update()
       this.estoqueProdutoChartGeral.update()
   
@@ -390,10 +372,9 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       this.chartVendasWidgetGeral.update()
 
     }else{
-      console.log('oi')
       this.cor = 'white'
       const b = document.querySelectorAll('#graficoFaturamento')
-      const c = document.querySelectorAll('#datePicker')
+      const c = document.querySelectorAll('.datepick')
       b.forEach(e=>{
         (e as HTMLElement).style.backgroundColor = 'black';
       })
@@ -407,8 +388,9 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       let corFundoGrafico = chartContext?.createLinearGradient(0, 0, 0,250);
       corFundoGrafico?.addColorStop(0,'black'); // Transparente na base
       corFundoGrafico?.addColorStop(1,cor.transparente); // Branco no topo
-      this.faturamentoChartGeral.data.datasets[0].backgroundColor = corFundoGrafico
+      this.faturamentoChartGeral.data.datasets[0].backgroundColor =corFundoGrafico
       this.faturamentoChartGeral.update()
+
 
       this.vendasPorProdutoChartGeral.options.scales.y.ticks.color = 'black'
       this.estoqueProdutoChartGeral.options.scales.y.ticks.color = 'black'
@@ -417,8 +399,7 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
       this.chartTicketMedioWidgetGeral.options.scales.y.ticks.color = 'black'
       this.chartCancelamentosWidgetGeral.options.scales.y.ticks.color = 'black'
       this.chartVendasWidgetGeral.options.scales.y.ticks.color = 'black'
-      
-      this.faturamentoChartGeral.update()
+
       this.vendasPorProdutoChartGeral.update()
       this.estoqueProdutoChartGeral.update()
   
@@ -430,6 +411,21 @@ export class DashGeralComponent implements OnInit,AfterViewInit {
     }
 
   }
+  ngOnInit(): void {
+    // this.faturamentoChartGeral.data.datasets.push(this.faturamentoChartGeral.data.datasets[0])
+    
+    this.subscription = this.chartService.myGlobalVariable$.subscribe(
+      (newValue) => {
+        this.onGlobalVariableChange(newValue); // Dispara a função quando a variável mudar
+      }
+    );
+    Chart.register(Colors)
+    Chart.register(zoomPlugin)
+    this.buscarDados('2024-06-01','2024-08-01')
+  }
+  dark = false
+  cor =''
+
   constructor(
     private chartService: ChartService,  
     private httpConfigService: HttpServiceService

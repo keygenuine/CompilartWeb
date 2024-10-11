@@ -15,32 +15,22 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Subscription } from 'rxjs';
 import { ChartService } from 'src/app/chart.service';
-import {
-  ButtonCloseDirective,
-  ButtonDirective,
-  ModalBodyComponent,
-  ModalComponent,
-  ModalFooterComponent,
-  ModalHeaderComponent,
-  ModalTitleDirective,
-  ThemeDirective
-} from '@coreui/angular';
-import { ModalModule } from '@coreui/angular';
-export interface produto{
-  id:number,
-  produto:string,
-  custo:number,
-  venda:number
+export interface fornecedor{
+  id: any,
+  fantasia: any,
+  cnpj: any,
+  cidade: any,
+  estado: any,
+  contato: any
 }
 @Component({
-  selector: 'app-produtos',
+  selector: 'app-fornecedor',
   standalone: true,
-  imports: [ModalModule,SharedModule,InputGroupTextDirective,FormModule,FormsModule,MatPaginatorModule,JsonPipe,MatSlideToggleModule,MatInputModule,MatFormFieldModule,ButtonDirective, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent],
-  templateUrl: './produtos.component.html',
-  styleUrl: './produtos.component.scss'
+  imports: [SharedModule,InputGroupTextDirective,FormModule,FormsModule,MatPaginatorModule,JsonPipe,MatSlideToggleModule,MatInputModule,MatFormFieldModule],
+  templateUrl: './fornecedor.component.html',
+  styleUrl: './fornecedor.component.scss'
 })
-
-export class ProdutosComponent implements OnInit {
+export class FornecedorComponent {
   length = 1000;
   pageSize = 20;
   pageIndex = 0;
@@ -63,22 +53,6 @@ export class ProdutosComponent implements OnInit {
 
     }
   }
-  public visible = false;
-  public visible1 = false;
-
-  toggleLiveDemo() {
-    this.visible = !this.visible;
-  }
-  toggleLiveDemo1() {
-    this.visible1 = !this.visible1;
-  }
-
-  handleLiveDemoChange(event: any) {
-    this.visible = event;
-  }
-  handleLiveDemoChange1(event: any) {
-    this.visible1 = event;
-  }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -91,82 +65,86 @@ export class ProdutosComponent implements OnInit {
   tabelas = [[true]] as any
   tabelasbkp = [] as any
 
-  atualizacaoProdutos = [ ] as any
-  alterarPreco(index:any,venda:any,item:any){
-    this.produtos[index].venda = venda.value
-    this.exibirProdutos[item][index].venda = venda.value
-    this.atualizacaoProdutos.push(this.exibirProdutos[item][index])
+  atualizacaoFornecedor = [ ] as any
+  // alterarPreco(index:any,venda:any,item:any){
+  //   this.fornecedores[index].venda = venda.value
+  //   this.exibirFornecedor[item][index].venda = venda.value
+  //   this.atualizacaoFornecedor.push(this.exibirFornecedor[item][index])
     
-  }
+  // }
   mudacor(item:any,i:any){
     this.tabelas[item][i] = true
     item == 0? this.tabelasbkp[i]=true : ''
   }
   atualizarProduto(){
-    console.log(this.tabelas)
-    this.httpConfigService.updateProduto(this.atualizacaoProdutos).subscribe(e=>{
+    this.httpConfigService.updateProduto(this.atualizacaoFornecedor).subscribe(e=>{
 
     })
   }
   exibirAtualizacoes(){
-    this.exibirProdutos[0] = this.atualizacaoProdutos
-    for (let c=0; c < this.atualizacaoProdutos.length;c++){
+    this.exibirFornecedor[0] = this.atualizacaoFornecedor
+    for (let c=0; c < this.atualizacaoFornecedor.length;c++){
       this.tabelas[0][c]= true
     }
-    // console.log(this.exibirProdutos[0])
+    // console.log(this.exibirFornecedor[0])
     this.pageIndex = 0
   } 
-  buscarProdutos(){
-    this.httpConfigService.ConsultarProduto().subscribe(e=>{
-      this.produtos = e.produtos
-      this.unidadeMedida = e.unidade
+  buscarFornecedor(){
+    this.httpConfigService.ConsultarFornecedor().subscribe(e=>{
+      this.fornecedores = e.fornecedor
       let contador = 0
-      this.exibirProdutos[contador] = []
-      this.length = Number(e.produtos.length) 
+      this.exibirFornecedor[contador] = []
+      this.length = Number(e.fornecedor.length) 
       // this.pageSize = 20
-      for (let n in e.produtos){
-        if(this.exibirProdutos[contador].length<this.pageSize-1){
+      for (let n in e.fornecedor){
+        if(this.exibirFornecedor[contador].length<this.pageSize-1){
           if(contador == 0) {
-            this.produtossalve.push(e.produtos[n])
+            this.fornecedorsalve.push(e.fornecedor[n])
           } 
-          this.exibirProdutos[contador].push(e.produtos[n])
+          this.exibirFornecedor[contador].push(e.fornecedor[n])
           this.contadorDeTabela[contador]=contador  
           this.tabelas[contador] = [false]
         }else {
-          this.exibirProdutos[contador].push(e.produtos[n])
+          this.exibirFornecedor[contador].push(e.fornecedor[n])
           this.contadorDeTabela[contador]=contador  
           this.tabelas[contador] = [false]
-          // console.log(this.exibirProdutos[contador].length) 
+          // console.log(this.exibirFornecedor[contador].length) 
           
           contador++
-          this.exibirProdutos[contador] = []
+          this.exibirFornecedor[contador] = []
         }
       }
     })
 
   }
   desfazerAtualizacoes(){
-    this.atualizacaoProdutos = []
-    this.exibirProdutos[0] = this.produtossalve
+    this.atualizacaoFornecedor = []
+    this.exibirFornecedor[0] = this.fornecedorsalve
     for (let n in this.tabelas){
       this.tabelas[n] = [false]
     }
-    this.buscarProdutos()
+    this.buscarFornecedor()
   }
-  produtos=[
-    {id:35,produto:"cola-coca",custo:3.50,venda:5.00},
+  fornecedores=[
+    {
+      id: 1,
+      fantasia: "PADRÃO",
+      cnpj: 'null',
+      cidade: "LAVRAS",
+      estado: "Minas Gerais",
+      contato: null
+    }
   ]
-  unidadeMedida = [] as any
-  exibirProdutos = [] as any
-  produtosFiltrados: produto[] = this.produtos;
-  produtossalve = [] as any
+  exibirFornecedor = [] as any
+  fornecedoresFiltrados: fornecedor[] = this.fornecedores;
+  fornecedorsalve = [] as any
   filtrarPorNome(nome: string) {
     if(nome == ''){
-      this.exibirProdutos[0] = this.produtossalve
+      this.exibirFornecedor[0] = this.fornecedorsalve
       this.pageIndex = 0
     }else{
-      this.produtosFiltrados = this.produtos.filter(p => p.produto.toLowerCase().includes(nome.toLowerCase()));
-      this.exibirProdutos[0] = this.produtosFiltrados
+      this.fornecedoresFiltrados = this.fornecedores.filter(p => p.fantasia.toLowerCase().includes(nome.toLowerCase()) || p.cnpj.includes(nome));
+      this.exibirFornecedor[0] = this.fornecedoresFiltrados
       this.pageIndex = 0
 
     }
@@ -197,7 +175,6 @@ export class ProdutosComponent implements OnInit {
         (f as HTMLElement).style.backgroundColor = '#212631b6';
       })
     }else{
-      this.dark = false
       this.cor = 'white'
       const c = document.querySelectorAll('.datepick')
       c.forEach(f=>{
@@ -213,30 +190,30 @@ export class ProdutosComponent implements OnInit {
   }
   private subscription?: Subscription;
   ngOnInit(): void {
-    this.buscarProdutos()
+    this.buscarFornecedor()
     // this.httpConfigService.ConsultarProduto().subscribe(e=>{
     //   this.produtos = e.produtos
     //   this.unidadeMedida = e.unidade
     //   let contador = 0
-    //   this.exibirProdutos[contador] = []
+    //   this.exibirFornecedor[contador] = []
     //   this.length = Number(e.produtos.length) 
     //   // this.pageSize = 20
     //   for (let n in e.produtos){
-    //     if(this.exibirProdutos[contador].length<this.pageSize-1){
+    //     if(this.exibirFornecedor[contador].length<this.pageSize-1){
     //       if(contador == 0) {
-    //         this.produtossalve.push(e.produtos[n])
+    //         this.fornecedorsalve.push(e.produtos[n])
     //       } 
-    //       this.exibirProdutos[contador].push(e.produtos[n])
+    //       this.exibirFornecedor[contador].push(e.produtos[n])
     //       this.contadorDeTabela[contador]=contador  
     //       this.tabelas[contador] = [false]
     //     }else {
-    //       this.exibirProdutos[contador].push(e.produtos[n])
+    //       this.exibirFornecedor[contador].push(e.produtos[n])
     //       this.contadorDeTabela[contador]=contador  
     //       this.tabelas[contador] = [false]
-    //       // console.log(this.exibirProdutos[contador].length) 
+    //       // console.log(this.exibirFornecedor[contador].length) 
           
     //       contador++
-    //       this.exibirProdutos[contador] = []
+    //       this.exibirFornecedor[contador] = []
     //     }
     //   }
     // })

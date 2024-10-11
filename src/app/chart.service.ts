@@ -33,6 +33,162 @@ export class ChartService {
     'Dezembro'
   ];
   public colorChartX = 'white'
+  newchart2(
+    chartname:any,
+    chartContext:any,
+    tipoGrafico:any,
+    type?:any,
+    labelData?:any,
+    corGrafico?:any
+  ){
+    let data = []
+    let tituloGrafico:any
+    let corFundoGrafico:any
+    let displayLeganda:any
+    let displayX=true
+    let displayGridX=true
+    let displayY=true
+    let displayGridY=true
+    let paddingBottom = 0
+    let paddingTop = 0
+    let typeChart:any = 'line'
+    let legendPosition:any = 'top'
+    let borderRad = 1
+    let corVerde = '#00ff26'
+
+    let borderColor = '#32ba4600'
+
+
+    let lineTension = 0.4 
+    let radiusPoint = 0
+    let pointBackgroundColor = ''
+    let label = 'Vendas R$'
+    let index = 'x'
+    let cor = {
+      branco:'#ffe5e5',
+      transparente:'rgba(255, 255, 255, 0)',
+      vermelho:'#af4e55',
+      azulClaro:'#84b6f4',
+      azul: '#7CBCCB'
+
+    }
+    switch(tipoGrafico){
+      case 'faturamento':
+        lineTension = 0.2
+        tituloGrafico = labelData||'Faturamento'
+        displayLeganda = true
+        displayX = false
+        displayY = false
+        paddingBottom = 20
+        corFundoGrafico = chartContext?.createLinearGradient(0, 0, 0,650);
+        corFundoGrafico?.addColorStop(0,'black'); // Transparente na base
+        corFundoGrafico?.addColorStop(1,cor.transparente); // Branco no topo
+        borderColor = 'rgba(255, 255, 255, 0.438)'
+        break;
+
+      }
+    return new Chart(chartname,{
+      type: type || 'line',
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            label: label || 'vendas Comanda R$',
+            data: [1,2,3,4,15,6,37,48,59,10,15,12] ,
+            fill: true,
+            // backgroundColor:'#7cbdcb73',
+            backgroundColor:'rgb(0,0,0,0)',
+            borderRadius: borderRad,
+            pointBackgroundColor:pointBackgroundColor,
+            borderColor: '#7cbdcb'
+            // color:'white'
+          },
+          {
+            label: label || 'vendas Balcao R$',
+            data: [1,32,23,4,15,6,37,8,59,12,15,12] ,
+            fill: true,
+            // backgroundColor:'#b04e587a',
+            backgroundColor:'rgb(0,0,0,0)',
+            borderRadius: borderRad,
+            pointBackgroundColor:pointBackgroundColor,
+            borderColor: '#b04e58'
+            // color:'white'
+          },
+          {
+            label: label || 'vendas Delivery R$',
+            data: [11,2,3,14,15,6,37,8,69,10,15,12] ,
+            fill: true,
+            // backgroundColor:'#32ba4669',
+            backgroundColor:'rgb(0,0,0,0)',
+            borderRadius: borderRad,
+            pointBackgroundColor:pointBackgroundColor,
+            borderColor: '#32ba46'
+            // color:'white'
+          }
+        ]
+      },
+      options:{
+        plugins:{
+          legend:{
+            display: displayLeganda,
+            position: legendPosition,
+          },
+          colors:{
+            enabled:true
+          },
+          title: {
+            display: true,
+            text: tituloGrafico
+          },
+          
+          
+        },
+        indexAxis: index,
+        scales: {
+          x: {
+            beginAtZero: false,
+              display:displayX , // Hides labels and chart lines of the x-axis
+              grid:{
+                display:displayGridX
+              },
+              ticks: {
+                color: 'black'
+              }
+            },
+          y:{
+            beginAtZero: false,
+              display:displayY,
+              grid:{
+                display:displayGridY
+              },
+              ticks: {
+                color: 'black'
+              }
+          }
+        },
+        maintainAspectRatio: false,
+        elements: {
+          line: {
+            tension: lineTension
+          },
+          point: {
+            radius: radiusPoint,
+            hitRadius: 10,
+            hoverRadius: 4,
+            hoverBorderWidth: 3
+          }
+        },
+        layout:{
+          padding:{
+            bottom:paddingBottom,
+            top:paddingTop
+          }
+        }
+      }
+    })
+  }
+  
+  
   newchart1(
     chartname:any,
     chartContext:any,

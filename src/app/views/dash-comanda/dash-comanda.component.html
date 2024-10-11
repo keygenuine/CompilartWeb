@@ -1,23 +1,21 @@
-
-<c-row class="px-4 " style="background-color: #000000"  id="datePicker">
-    <c-col class="py-1 d-flex" md="12" xl="6" xs="12" >
-        <div class="date-picker-container  p-0 " >
-          <input type="text" id="datePicker" #date>
+<c-row class="m-0 p-0 datepick" style="background-color: #000000;border-radius: 0px; padding-top:2px!important" >
+    <c-col class="d-flex px-4" md="12" xl="12" xs="12" >
+        <div class="date-picker-container" >
+          <input type="text" id="datePicker" class = "datepick" #date>
           <i class="fa-regular fa-calendar"  style="margin-left: -25px;margin-right:25px; color: white;" ></i>
           <div class="calendar-header ps-1" style="font-size: 10px;margin-top: -28px; margin-bottom: 12px; color: white;" *ngIf="!date.value">Data Inicial</div>
         </div>
-        <div class="date-picker-container p-0 ">
-          <input type="text" id="datePicker" #date1>
+        <div class="date-picker-container ms-1">
+          <input type="text" id="datePicker" class = "datepick" #date1>
           <i class="fa-regular fa-calendar"  style="margin-left: -25px;margin-right:25px; color: white;"></i>
           <div class="calendar-header ps-1" style="font-size: 10px;margin-top: -28px; margin-bottom: 12px; color: white;" *ngIf="!date1.value">Data Final</div>
         </div>
-        <button id="pesquisarData" >
+        <button id="pesquisarData" class="ms-2 datepick" style="border-color: white !important">
           <i class="fa-solid fa-magnifying-glass" style="color: rgb(255, 255, 255);  padding: 3px;"
           (click)="buscarDados(date.value,date1.value)"></i>
         </button>
     </c-col>
   </c-row>
-
 <c-row class="m-0" >
     <c-col lg="12" class="pt-3 " style="background-color:#000000; min-height: 250px;" id="graficoFaturamento">
         <div style="height: 300px;">
@@ -182,13 +180,13 @@
                 <c-col xs="6">
                     <div class="border-start border-start-4 border-start-info py-1 px-3 mb-3">
                     <div class="text-body-secondary text-truncate small">Vendas</div>
-                    <div class="fs-5 fw-semibold">R${{produtosListaVendas}}</div>
+                    <div class="fs-5 fw-semibold">R${{produtosListaVendas.toFixed(2)}}</div>
                     </div>
                 </c-col>
                 <c-col xs="6">
                     <div class="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
                     <div class="text-body-secondary text-truncate small">Custo</div>
-                    <div class="fs-5 fw-semibold">R${{produtosListaCusto}}</div>
+                    <div class="fs-5 fw-semibold">R${{produtosListaCusto.toFixed(2)}}</div>
                     </div>
                 </c-col>
                 </c-row>
@@ -275,17 +273,19 @@
                         </c-card-header>
                         <c-card-body>
                             <div class="progress-group-bars d-flex ps-3">
-                            <span class="text-body-secondary small w-50 pe-1 ps-1">
-                                <p style="font-size: 10px; margin-bottom: 0px;">Custo</p>
-                                <p class="mb-0"><strong>R${{produtos.custo}}</strong></p>
-                                <c-progress thin color="danger" value="{{produtos.custo == 0  ? 0 : 100 - (produtos.custo/(produtos.custo+produtos.venda))*100 }}" aria-label="Custo" />
-                            </span>
-                            <span class="text-body-secondary small w-50 pe-1 ps-1" >
-                                <p style="font-size: 10px;margin-bottom: 0px;">Venda</p>
-                                <p  class="mb-0"><strong>R${{produtos.venda}}</strong></p>
-                                <c-progress thin color="info" value="{{produtos.custo == 0 ? 100: 100 - (produtos.venda/(produtos.custo+produtos.venda))*100}}" aria-label="Venda" />
-                            </span>
-                            </div>
+                                <span class="text-body-secondary small w-50 pe-1 ps-1">
+                                    <p style="font-size: 10px; margin-bottom: 0px;">Custo</p>
+                                    <p class="mb-0"><strong>R${{produtos.custo}}</strong></p>
+                                    <c-progress thin color="danger" value="{{produtos.custo == 0  ? 0 : (produtos.custo/(produtos.custo+produtos.venda))*100 }}" aria-label="Custo" />
+                                </span>
+                                <span class="text-body-secondary small w-50 pe-1 ps-1" >
+                                    <p style="font-size: 10px;margin-bottom: 0px;">Venda</p>
+                                    <p  class="mb-0"><strong>R${{produtos.venda}}</strong></p>
+                                    <c-progress thin color="info" value="{{produtos.custo == 0 ? 100 : (produtos.venda/(produtos.custo+produtos.venda))*100}}" aria-label="Venda" />
+                                    <p>{{produtos.custo == 0 ? 100 : (produtos.venda/(produtos.custo+produtos.venda))*100}}</p>
+                                    <p>{{(produtos.venda/produtos.custo)}}</p>
+                                </span>
+                                </div>
                         </c-card-body>
                         </c-card>  
                     </div>

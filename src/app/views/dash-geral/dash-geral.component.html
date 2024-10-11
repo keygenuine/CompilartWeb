@@ -1,29 +1,30 @@
-<c-row class="px-4 " style="background-color: #000000"  id="datePicker">
-    <c-col class="py-1 d-flex" md="12" xl="6" xs="12" >
-        <div class="date-picker-container  p-0 " >
-          <input type="text" id="datePicker" #date>
+<c-row class="m-0 p-0 datepick" style="background-color: #000000;border-radius: 0px; padding-top:2px!important" >
+    <c-col class="d-flex px-4" md="12" xl="12" xs="12" >
+        <div class="date-picker-container" >
+          <input type="text" id="datePicker" class = "datepick" #date>
           <i class="fa-regular fa-calendar"  style="margin-left: -25px;margin-right:25px; color: white;" ></i>
           <div class="calendar-header ps-1" style="font-size: 10px;margin-top: -28px; margin-bottom: 12px; color: white;" *ngIf="!date.value">Data Inicial</div>
         </div>
-        <div class="date-picker-container p-0 ">
-          <input type="text" id="datePicker" #date1>
+        <div class="date-picker-container ms-1">
+          <input type="text" id="datePicker" class = "datepick" #date1>
           <i class="fa-regular fa-calendar"  style="margin-left: -25px;margin-right:25px; color: white;"></i>
           <div class="calendar-header ps-1" style="font-size: 10px;margin-top: -28px; margin-bottom: 12px; color: white;" *ngIf="!date1.value">Data Final</div>
         </div>
-        <button id="pesquisarData" >
+        <button id="pesquisarData" class="ms-2 datepick" style="border-color: white !important">
           <i class="fa-solid fa-magnifying-glass" style="color: rgb(255, 255, 255);  padding: 3px;"
           (click)="buscarDados(date.value,date1.value)"></i>
         </button>
     </c-col>
   </c-row>
-
-<c-row class="m-0" >
-    <c-col lg="12" class="pt-3 " style="background-color:#000000; min-height: 250px;" id="graficoFaturamento" >
-        <div style="height: 300px;">
-        <canvas baseChart id="faturamentoChartGeral" #faturamentoChartGeralRef class="mb-3"></canvas>
-        </div>
+  
+  <c-row class="m-0 p-0" >
+      <c-col lg="12" class="pt-3 p-0 " id="graficoFaturamento"  style="background-color:#000000; min-height: 250px;  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+  
+      <div style="height: 300px;" class="m-0 p-0">
+        <canvas baseChart id="faturamentoChartGeral" #faturamentoChartGeralRef class="mb-3" ></canvas>
+      </div>
     </c-col>
-</c-row>
+  </c-row>
 
 <c-row class="g-4 px-4" style="margin-top:-40px !important">
     <c-col sm="6" xl="3">
@@ -160,21 +161,8 @@
             <c-card-header >Vendas</c-card-header>
             <c-card-body>
             <div style="height: 350px; display: flex;" class="pb-3">
-                <div class="d-block">
+                <div class="d-block w-100">
                     <canvas baseChart id="chartVendaComandaGeral" #chartVendaComandaGeralRef ></canvas>
-                    <div class="progress-group mb-4 border rounded p-3 pe-5"  (click)="produtoGraficoGrupo('top 10 produtos')">
-                        <div class="progress-group-prepend me-3">
-                            <span class="text-body-secondary small d-flex me-3 p-0 mt-2">
-                            <i class="fa-solid fa-ranking-star pt-1 me-3"></i>
-                            <div class="d-block p-0">
-                                <p class="text-nowrap">Total Vendas</p>
-                            </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <canvas baseChart id="chartVendaBalcaoGeral" #chartVendaBalcaoGeralRef ></canvas>
                 </div>
             </div>
             </c-card-body>
@@ -193,13 +181,13 @@
                 <c-col xs="6">
                     <div class="border-start border-start-4 border-start-info py-1 px-3 mb-3">
                     <div class="text-body-secondary text-truncate small">Vendas</div>
-                    <div class="fs-5 fw-semibold">R${{produtosListaVendas}}</div>
+                    <div class="fs-5 fw-semibold">R${{produtosListaVendas.toFixed(2)}}</div>
                     </div>
                 </c-col>
                 <c-col xs="6">
                     <div class="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
                     <div class="text-body-secondary text-truncate small">Custo</div>
-                    <div class="fs-5 fw-semibold">R${{produtosListaCusto}}</div>
+                    <div class="fs-5 fw-semibold">R${{produtosListaCusto.toFixed(2)}}</div>
                     </div>
                 </c-col>
                 </c-row>

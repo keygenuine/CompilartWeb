@@ -1,0 +1,78 @@
+
+
+
+<c-row class="px-4 py-4"  style="overflow: auto;">
+    <c-col md="12" xl="12" xs="12">
+        <div class="d-lg-flex w-100">
+            <c-input-group class="h-25 w-lg-25 w-xl-25 w-sm-100 mb-0 mt-4 justify-content-between ">
+                <input aria-describedby="inputGroup-sizing-sm" aria-label="Sizing example input" cFormControl #pesquisa (keyup.enter)="filtrarPorNome(pesquisa.value)" />
+                <button cInputGroupText id="inputGroup-sizing-sm" (click)="filtrarPorNome(pesquisa.value)">Pesquisar</button>
+            </c-input-group>
+            <c-input-group class="mb-0 mt-4 justify-content-end">
+                <button cInputGroupText id="inputGroup-sizing-xs" class="input" (click)="exibirAtualizacoes()" ><i class="fa-solid fa-bars me-3" style="color:#32ba46;"></i> <p class="alteracoes p-0 m-0">Exibir</p></button>
+                <button cInputGroupText id="inputGroup-sizing-xs"  class="input" (click)="atualizarProduto()" ><i class="fa-solid fa-check me-3" style="color:#7cbdcb "></i><p class="alteracoes p-0 m-0">Aplicar</p></button>
+                <button cInputGroupText id="inputGroup-sizing-xs"  class="input" (click)="desfazerAtualizacoes()"><i class="fa-solid fa-xmark me-3" style="color: #b04e58;"></i><p  class="alteracoes p-0 m-0">Desfazer</p></button>
+            </c-input-group>
+
+        </div>
+    </c-col>
+</c-row>
+
+<c-row class="px-4 py-4" id="colunaProdutos" style="overflow: auto;">
+    <c-col md="12" xl="12" xs="12" sm="12" id="colunasTabelaProdutos " class="px-0" >
+
+        <c-tabs [activeItemKey]="pageIndex ">
+            <!-- <c-tabs-list>
+              <button cTab [itemKey]="item" *ngFor="let item of contadorDeTabela">{{contadorDeTabela[item]+1}}</button>
+            </c-tabs-list> -->
+            <c-tabs-content>
+              <c-tab-panel class="p-3" [itemKey]="item" *ngFor="let item of contadorDeTabela" >
+                <table cTable id="tabelahoje" >
+                    <thead>
+                        <tr style="margin: 0px; padding: 0px;">
+                            <th scope="col">Id</th>
+                            <th scope="col" class="text-nowrap">Nome Fantasia</th>
+                            <th scope="col" class="text-nowrap">Cnpj</th>
+                            <th scope="col" class="text-nowrap">Cidade</th>
+                            <th scope="col" class="text-nowrap">Estado</th>
+                            <th scope="col" class="text-nowrap">Contato</th>
+                            <th scope="col" class="text-nowrap">Notas Fiscais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let fornecedor of exibirFornecedor[item]; let i = index" [style]="dark==false?'background-color:#32ba46b4 !important;':'background-color:rgb(255,255,255,0.3) !important;'" >
+                            <th scope="row" class="pt-3" [class.select]="tabelas[item][i]==true">{{fornecedor.id }}</th>
+                            <td class="pt-3" [class.select]="tabelas[item][i]==true">{{fornecedor.fantasia}}</td>
+                            <td class="pt-3" [class.select]="tabelas[item][i]==true">{{fornecedor.cnpj}}</td>
+                            <!-- <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><input  [class.select]="tabelas[item][i]==true" type="number" value="{{fornecedor.cidade}}" style="border:none" id="inputProdutos" (change)="alterarPreco(i,$event.target,item);mudacor(item,i)"></td> -->
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><input  [class.select]="tabelas[item][i]==true"  value="{{fornecedor.cidade}}" style="border:none" id="inputProdutos" ></td>
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><input  [class.select]="tabelas[item][i]==true"  value="{{fornecedor.estado}}" style="border:none" id="inputProdutos"></td>
+                            <!-- <td class="pt-3 text-nowrap"><input type="number" value="{{produto.unidade}}" style="border:none" id="inputProdutos"></td> -->
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true">{{fornecedor.contato}}</td>
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><p>{{fornecedor.qtd}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </c-tab-panel>
+            </c-tabs-content>
+        </c-tabs>
+        <mat-paginator #paginator 
+        style="background-color: rgb(0,0,0,0); "
+        class="demo-paginator"
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [disabled]="disabled"
+        [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="10"
+        [pageIndex]="pageIndex"
+        aria-label="Select page">
+        </mat-paginator>
+
+
+  
+    </c-col>
+</c-row>
+
+

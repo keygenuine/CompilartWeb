@@ -52,12 +52,10 @@ export const navItems: INavData[] = [
       {
         name: 'Produtos',
         url: '/produtos',
-        icon: 'nav-icon-bullet'
       },
       {
-        name: 'Breadcrumbs',
-        url: '/base/breadcrumbs',
-        icon: 'nav-icon-bullet'
+        name: 'Fornecedores',
+        url: '/fornecedor',
       },
     ]
   },

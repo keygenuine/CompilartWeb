@@ -33,4 +33,10 @@ export class HttpServiceService {
   ConsultarProduto():Observable<any>{
     return this.http.post<any>(this.url+'produtos',this.requestOptions)
   }
+  updateProduto(body:any):Observable<any>{
+    return this.http.post<any>(this.url+'updateprodutos',body,this.requestOptions)
+  }
+  ConsultarFornecedor():Observable<any>{
+    return this.http.post<any>(this.url+'fornecedor',this.requestOptions)
+  }
 }

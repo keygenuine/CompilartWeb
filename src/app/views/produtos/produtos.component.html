@@ -1,39 +1,178 @@
-<c-row class="ps-4">
-    <c-col md="12" xl="3" xs="12" >
-        <c-input-group class="mb-0 mt-4" sizing="sm">
-            <input aria-describedby="inputGroup-sizing-sm" aria-label="Sizing example input" cFormControl #pesquisa (keyup.enter)="filtrarPorNome(pesquisa.value)"/>
-            <button cInputGroupText id="inputGroup-sizing-sm" (click)="filtrarPorNome(pesquisa.value)">Pesquisar</button>
-        </c-input-group>
+
+
+
+
+<c-row class="px-0 py-0 "  style="overflow: auto;">
+    <c-col md="12" xl="12" xs="12">
+        <div class="d-lg-block w-100 px-4 py-4 mt-4" [style]="dark==false? 'background-color:white':'background-color:rgb(0,0,0,0)'">
+            <div class="d-flex w-50">
+            <c-input-group class=" justify-content-between ">
+                <input aria-describedby="inputGroup-sizing-sm"  aria-label="Sizing example input" cFormControl #pesquisa (keyup.enter)="filtrarPorNome(pesquisa.value)" />
+                <button cInputGroupText id="inputGroup-sizing-sm" (click)="filtrarPorNome(pesquisa.value)">Pesquisar</button>
+            </c-input-group>
+            </div>
+            <div class="d-flex w-100 mt-3" style="border-bottom: 1px solid rgba(40, 133, 255, 0.116)">
+                <c-input-group class="mb-0 mt-0 justify-content-start"  >
+                    <!-- <button cInputGroupText id="inputGroup-sizing-xs" style="border: 0.2px  solid rgba(124, 203, 144, 0.475);" class="input" (click)="exibirAtualizacoes()" ><i class="fa-solid fa-bars me-3 " style="color:#7ccb90 "></i> <p class="alteracoes p-0 m-0">Alterados</p></button> -->
+                    <!-- <button cInputGroupText id="inputGroup-sizing-xs" style="border: 1px  solid rgba(124, 203, 144, 0.475); background-color: rgba(124, 203, 144, 0.175);" class="input" (click)="exibirAtualizacoes()"><i class="fa-solid fa-rectangle-list me-0" style="color:#7ccb90 ;font-size: 25px; "></i><p class="alteracoes p-0 m-0"></p></button> -->
+                    <button cInputGroupText id="inputGroup-sizing-xs" 
+                    [style]="dark==false?'border: 1px  solid rgba(124, 203, 144, 0); background-color: rgba(124, 203, 144, 0.175);':'border: 1px  solid rgba(124, 203, 144, 0); background-color: rgba(124, 203, 144, 0);'" 
+                    class="input" (click)="exibirAtualizacoes();">
+                      <i class="fa-solid fa-table-list me-0" style="color:#7ccb90 ;font-size: 25px; "></i>
+                      <p class="alteracoes p-0 m-0"></p>
+                    </button>
+                    
+                    <!-- <button cInputGroupText id="inputGroup-sizing-xs" style="border: 0.2px  solid rgba(124, 189, 203, 0.475);" class="input" (click)="atualizarProduto()" ><i class="fa-solid fa-check me-3" style="color:#7cbdcb "></i><p class="alteracoes p-0 m-0">Aplicar</p></button> -->
+                    <button cInputGroupText id="inputGroup-sizing-xs" 
+                    [style]="dark==false?'border: 1px  solid rgba(124, 189, 203, 0);background-color:rgba(124, 189, 203, 0.175)':'border: 1px  solid rgba(124, 189, 203, 0);background-color:rgba(124, 189, 203, 0)'" class="input" (click)="toggleLiveDemo()">
+                      <i class="fa-solid fa-square-check me-0" style="color:#7cbdcb;font-size: 25px; "></i>
+                      <p class="alteracoes p-0 m-0"></p>
+                    </button>
+                    <!-- <button cInputGroupText id="inputGroup-sizing-xs" style="border: 0.2px  solid rgba(248, 184, 190, 0.475);" class="input" (click)="desfazerAtualizacoes()"><i class="fa-solid fa-xmark me-3" style="color: #b04e58;"></i><p  class="alteracoes p-0 m-0">Desfazer</p></button> -->
+                    <button cInputGroupText id="inputGroup-sizing-xs" 
+                    [style]="dark==false? 'border: 1px  solid rgba(248, 184, 191, 0);background-color:rgba(248, 184, 190, 0.175)' :'border: 1px  solid rgba(248, 184, 191, 0);background-color:rgba(248, 184, 190, 0)'" class="input" (click)="toggleLiveDemo1()">
+                      <i class="fa-solid fa-square-xmark me-0" style="color:#b04e58;font-size: 25px; " ></i>
+                      <p  class="alteracoes p-0 m-0"></p>
+                    </button>
+
+                </c-input-group>
+                <c-input-group class="mb-0 mt-0 justify-content-end">
+                    <button cInputGroupText [cModalToggle]="verticallyCenteredModal.id" id="inputGroup-sizing-xs" style="border: 1px  solid rgba(184, 212, 248, 0);background-color:rgba(184, 212, 248, 0.175)" class="input" ><i class="fa-solid fa-square-plus"  style="color:rgba(0, 0, 0, 0.721);font-size: 25px; "></i></button>
+                </c-input-group>
+            </div>
+
+
+        </div>
     </c-col>
 </c-row>
-<c-row class="px-4 py-4" id="colunaProdutos">
-    <c-col md="12" xl="12" xs="12" sm="12" id="colunasTabelaProdutos " class="bg-light p-3" >
-        <table cTable >
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col" class="text-nowrap">Preço de Venda</th>
-                    <th scope="col" class="text-nowrap">Preço de Custo</th>
-                    <!-- <th scope="col"></th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let produto of exibirProdutos" >
-                    <th scope="row" class="pt-3">{{produto.id}}</th>
-                    <td class="pt-3">{{produto.produto}}</td>
-                    <td class="pt-3 text-nowrap"><input  type="text" value="{{produto.custo}}" style="border:none" id="inputProdutos"></td>
-                    <td class="pt-3"><input type="text" value="{{produto.custo}}" style="border:none" id="inputProdutos"></td>
-                    <!-- <td><button cInputGroupText>Salvar Alteração</button></td> -->
-                </tr>
-            </tbody>
-        </table>
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Alterar</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>Deseja aplicar as alterações?</c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">
+      Fechar
+    </button>
+    <button cButton color="primary" (click)="atualizarProduto();toggleLiveDemo()">Sim</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-modal id="liveDemoModal" [visible]="visible1" (visibleChange)="handleLiveDemoChange1($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Alterar</h5>
+    <button (click)="toggleLiveDemo1()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>Deseja desfazer as alterações?</c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo1()" cButton color="secondary">
+      Fechar
+    </button>
+    <button cButton color="primary" (click)="desfazerAtualizacoes();toggleLiveDemo1()">Sim</button>
+  </c-modal-footer>
+</c-modal>
+
+
+<c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal">
+  <c-modal-header>
+    <h5 cModalTitle>Adicionar Produto</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <c-row class="mt-4 px-4">
+        <c-col md="12" xl="12" xs="12" class="text-center" >
+            <c-input-group class="mb-3">
+                <span cInputGroupText>Nome</span>
+                <input aria-label="Dollar amount (with dot and two decimal places)" cFormControl/>
+            </c-input-group>
+            <c-input-group class="mb-3">
+                <label cInputGroupText for="inputGroupSelect01">
+                    Grupo
+                </label>
+                <select cSelect id="inputGroupSelect01">
+                    <option>Escolha...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </c-input-group>
+            <c-input-group class="mb-3">
+                <span cInputGroupText>Valor</span>
+                <input aria-label="Dollar amount (with dot and two decimal places)" cFormControl/>
+            </c-input-group>
+            <c-input-group class="mb-3">
+                <span cInputGroupText>QTD Estoque</span>
+                <input aria-label="Dollar amount (with dot and two decimal places)" cFormControl/>
+            </c-input-group>
+            
+
+        </c-col>
+    </c-row>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">
+      Fechar
+    </button>
+    <button cButton color="primary">Adicionar</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-row class="px-4 py-4" id="colunaProdutos" style="overflow: auto;">
+    <c-col md="12" xl="12" xs="12" sm="12" id="colunasTabelaProdutos " class="px-0" >
+
+        <c-tabs [activeItemKey]="pageIndex ">
+            <!-- <c-tabs-list>
+              <button cTab [itemKey]="item" *ngFor="let item of contadorDeTabela">{{contadorDeTabela[item]+1}}</button>
+            </c-tabs-list> -->
+            <c-tabs-content>
+              <c-tab-panel class="p-3" [itemKey]="item" *ngFor="let item of contadorDeTabela" >
+                <table cTable id="tabelahoje" >
+                    <thead>
+                        <tr style="margin: 0px; padding: 0px;">
+                            <th scope="col">Id</th>
+                            <th scope="col" class="text-nowrap">Produto</th>
+                            <th scope="col" class="text-nowrap">Grupo</th>
+                            <th scope="col" class="text-nowrap">Preço de Venda($)</th>
+                            <th scope="col" class="text-nowrap">Preço de Custo($)</th>
+                            <th scope="col" class="text-nowrap">Unidade Medida</th>
+                            <th scope="col" class="text-nowrap">Quantidade Estoque</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let produto of exibirProdutos[item]; let i = index" [style]="dark==false?'background-color:#32ba46b4 !important;':'background-color:rgb(255,255,255,0.3) !important;'" >
+                            <th scope="row" class="pt-3" [class.select]="tabelas[item][i]==true">{{produto.id }}</th>
+                            <td class="pt-3" [class.select]="tabelas[item][i]==true">{{produto.produto| lowercase }}</td>
+                            <td class="pt-3" [class.select]="tabelas[item][i]==true">{{produto.grupo | lowercase }}</td>
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><input  [class.select]="tabelas[item][i]==true" type="number" value="{{produto.venda}}" style="border:none" id="inputProdutos" (change)="alterarPreco(i,$event.target,item);mudacor(item,i)"></td>
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><input  [class.select]="tabelas[item][i]==true" type="number" value="{{produto.custo}}" style="border:none" id="inputProdutos"></td>
+                            <!-- <td class="pt-3 text-nowrap"><input type="number" value="{{produto.unidade}}" style="border:none" id="inputProdutos"></td> -->
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true">{{produto.unidade | lowercase}}</td>
+                            <td class="pt-3 text-nowrap" [class.select]="tabelas[item][i]==true"><p>{{produto.qtd}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </c-tab-panel>
+            </c-tabs-content>
+        </c-tabs>
+        <mat-paginator #paginator 
+        style="background-color: rgb(0,0,0,0); "
+        class="demo-paginator"
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [disabled]="disabled"
+        [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="10"
+        [pageIndex]="pageIndex"
+        aria-label="Select page">
+        </mat-paginator>
+
+
+  
     </c-col>
 </c-row>
 
 
-<c-row class="px-4 py-4" id="colunaProdutos">
-    <c-col md="12" xl="12" xs="12" sm="12" id="colunasTabelaProdutos " class="bg-light p-3" >
-
-    </c-col>
-</c-row>
